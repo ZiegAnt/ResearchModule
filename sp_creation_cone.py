@@ -4,7 +4,7 @@ from scipy.linalg import norm
 import pylab as plt
 import random
 import pandas as pd 
-%matplotlib qt
+#%matplotlib qt
 
 plt.close('all')
 
@@ -65,7 +65,7 @@ z_max = 60
 noise_mag_cone = 1 # in + and - direction
 
 # surface_points parameters
-n_sp = 5 # number of surface points in 1 dimension
+n_sp = 3 # number of surface points in 1 dimension
 
 # settings strongly consolidated sandstone formation
 css_z = 5
@@ -112,9 +112,9 @@ sp_diatreme_y = y_n.flatten().tolist()
 sp_diatreme_z = z.flatten().tolist()
 
 # Add axis endpoints 
-sp_diatreme_x = sp_diatreme_x + [A0[0],A1[0]]
-sp_diatreme_y = sp_diatreme_y + [A0[1],A1[1]]
-sp_diatreme_z = sp_diatreme_z + [A0[2],A1[2]]
+sp_diatreme_x = sp_diatreme_x[::24] + [A0[0],A1[0]]
+sp_diatreme_y = sp_diatreme_y[::24] + [A0[1],A1[1]]
+sp_diatreme_z = sp_diatreme_z[::24] + [A0[2],A1[2]]
 ###############################################################################
 # surface_points of strongly consolidated Sandstone Layer (sp_css)
 x_arr = np.linspace(x_min, x_max, n_sp) 
@@ -172,17 +172,28 @@ formation_list = ['CSS' for i in sp_css_x] + ['SS' for i in sp_ss_x] + ['Diatrem
 
 sp_df_dict = {'X':x_coordinate, 'Y':y_coordinate, 'Z':z_coordinate,'formation':formation_list}
 sp_df = pd.DataFrame(data=sp_df_dict)
+#sp_df.to_csv('RM_surface_points.csv')
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1, projection='3d')
 ax.scatter(sp_css_x,sp_css_y,sp_css_z)
 ax.scatter(sp_ss_x,sp_ss_y,sp_ss_z)
-ax.scatter(sp_diatreme_x,sp_diatreme_y,sp_diatreme_z)
+ax.scatter(sp_diatreme_x[::10],sp_diatreme_y[::10],sp_diatreme_z[::10])
 ax.scatter(sp_soil_x,sp_soil_y,sp_soil_z)
 plt.show()
 
 
+x_coo_ori = [sp_css_x[0],sp_soil_x[0],A0[0],A1[0],sp_diatreme_x[125]]
+y_coo_ori = [sp_css_y[0],sp_soil_y[0],A0[1],A1[1],sp_diatreme_y[125]]
+z_coo_ori = [sp_css_z[0],sp_soil_z[0],A0[2],A1[2],sp_diatreme_z[125]]
+az_ori = [0,0,0,0,0]
+dip_ari = [0,0,0,0,90]
+pol_ori = [1,1,1,1,1]
+formation_ori = ['CSS','Soil','Diatreme','Diatreme','Diatreme']
 
+ori_df_dict = {'X':x_coo_ori, 'Y':y_coo_ori, 'Z':z_coo_ori,'azimuth':az_ori ,'dip':dip_ari ,'polarity':pol_ori ,'formation':formation_ori}
+ori_df = pd.DataFrame(data=ori_df_dict)
+#ori_df.to_csv('RM_orientations.csv')
 
 
 
