@@ -1,5 +1,7 @@
 # ResearchModule
 Git Repository for all work related to the Research Module.
+A synthetic data study for a volcanic diatreme structure is planned.
+First a model is generated with GemPy which then will be used for forward calculations in pygimli.
 
 sp_creation_cone.py: Python script to produce csv-file containing surface points of geologic structures
 
