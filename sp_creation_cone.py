@@ -50,8 +50,8 @@ def truncated_cone(p0, p1, R0, R1):
 # cone parameters
 A0 = np.array([50, 50, -15]) # upper axis point
 A1 = np.array([50, 50, -55]) # lower axis point
-R_upper = 30 # radius at upper end
-R_lower = 20 # radius at lower end
+R_upper = 30                 # radius at upper end
+R_lower = 20                 # radius at lower end
 
 # model dimensions
 x_min = 0
@@ -62,9 +62,10 @@ z_min = -60
 z_max = 0
 
 # Noise parameters
-noise_mag_cone = 1 # in + and - direction
-sampling_top_bottom = 5 #sampling of top and bottom surface
-sampling_mantle = 65 # sampling of cone mantle
+noise_mag_cone = 1          # in + and - direction
+sampling_top_bottom = 5     # sampling of top and bottom surface
+sampling_mantle = 65        # sampling of cone mantle
+sampling_orientation = 3    # sampling of mantle orientations based on mantlesurface points
 
 # surface_points parameters
 n_sp = 3 # number of surface points in 1 dimension
@@ -209,13 +210,13 @@ sp_diatreme_df_dict = {'X':sp_diatreme_x, 'Y':sp_diatreme_y, 'Z':sp_diatreme_z,
 sp_diatreme_df = pd.DataFrame(data=sp_diatreme_df_dict)
 sp_diatreme_df.to_csv('RM_surface_points_diatreme.csv')
 
-x_coo_ori_diatreme = [x for x in sp_diatreme_topx]+[x for x in sp_diatreme_botx]+[x for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)]]
-y_coo_ori_diatreme = [y for y in sp_diatreme_topy]+[y for y in sp_diatreme_boty]+[y for y in sp_diatreme_y[:-len(sp_diatreme_topx+sp_diatreme_botx)]]
-z_coo_ori_diatreme = [z for z in sp_diatreme_topz]+[z for z in sp_diatreme_botz]+[z for z in sp_diatreme_z[:-len(sp_diatreme_topx+sp_diatreme_botx)]]
+x_coo_ori_diatreme = [x for x in sp_diatreme_topx]+[x for x in sp_diatreme_botx]+[x for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
+y_coo_ori_diatreme = [y for y in sp_diatreme_topy]+[y for y in sp_diatreme_boty]+[y for y in sp_diatreme_y[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
+z_coo_ori_diatreme = [z for z in sp_diatreme_topz]+[z for z in sp_diatreme_botz]+[z for z in sp_diatreme_z[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
 
-az_ori_diatreme = [0 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[np.rad2deg(np.arctan((sp_diatreme_x[i]-A0[0])/(sp_diatreme_y[i]-A0[1]))) for i in range(0,len(sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)]))]
-dip_ari_diatreme = [0 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[np.rad2deg(np.arctan((A0[2]-A1[2])/(R_upper-R_lower))) for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)]]
-pol_ori_diatreme = [1 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[1 for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)]]
+az_ori_diatreme = [0 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[np.rad2deg(np.arctan((sp_diatreme_x[i]-A0[0])/(sp_diatreme_y[i]-A0[1]))) for i in range(0,len(sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]))]
+dip_ari_diatreme = [0 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[np.rad2deg(np.arctan((A0[2]-A1[2])/(R_upper-R_lower))) for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
+pol_ori_diatreme = [1 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[1 for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
 
 
 ori_df_dict_diatreme = {'X':x_coo_ori_diatreme, 'Y':y_coo_ori_diatreme, 
