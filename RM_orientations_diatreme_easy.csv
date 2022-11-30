@@ -1,0 +1,13 @@
+,X,Y,Z,azimuth,dip,polarity,formation
+0,20,50,-15,-90,76,1,Diatreme
+1,80,50,-15,90,76,1,Diatreme
+2,25,50,-35,-90,76,1,Diatreme
+3,75,50,-35,90,76,1,Diatreme
+4,30,50,-55,-90,76,1,Diatreme
+5,70,50,-55,90,76,1,Diatreme
+6,50,20,-15,180,76,1,Diatreme
+7,50,80,-15,0,76,1,Diatreme
+8,50,25,-35,180,76,1,Diatreme
+9,50,75,-35,0,76,1,Diatreme
+10,50,30,-55,180,76,1,Diatreme
+11,50,70,-55,0,76,1,Diatreme

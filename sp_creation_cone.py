@@ -64,8 +64,8 @@ z_max = 0
 # Noise parameters
 noise_mag_cone = 1          # in + and - direction
 sampling_top_bottom = 5     # sampling of top and bottom surface
-sampling_mantle = 65        # sampling of cone mantle
-sampling_orientation = 3    # sampling of mantle orientations based on mantlesurface points
+sampling_mantle = 10        # sampling of cone mantle
+sampling_orientation = 4    # sampling of mantle orientations based on mantlesurface points
 
 # surface_points parameters
 n_sp = 3 # number of surface points in 1 dimension
@@ -213,6 +213,7 @@ sp_diatreme_df.to_csv('RM_surface_points_diatreme.csv')
 x_coo_ori_diatreme = [x for x in sp_diatreme_topx]+[x for x in sp_diatreme_botx]+[x for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
 y_coo_ori_diatreme = [y for y in sp_diatreme_topy]+[y for y in sp_diatreme_boty]+[y for y in sp_diatreme_y[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
 z_coo_ori_diatreme = [z for z in sp_diatreme_topz]+[z for z in sp_diatreme_botz]+[z for z in sp_diatreme_z[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
+
 
 az_ori_diatreme = [0 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[np.rad2deg(np.arctan((sp_diatreme_x[i]-A0[0])/(sp_diatreme_y[i]-A0[1]))) for i in range(0,len(sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]))]
 dip_ari_diatreme = [0 for i in range(0,len(sp_diatreme_topx+sp_diatreme_botx))]+[np.rad2deg(np.arctan((A0[2]-A1[2])/(R_upper-R_lower))) for x in sp_diatreme_x[:-len(sp_diatreme_topx+sp_diatreme_botx)][::sampling_orientation]]
