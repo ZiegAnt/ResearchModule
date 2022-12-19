@@ -1,9 +1,0 @@
-::Please adjust all folder names to match the file paths on your PC
-::1) adjust drive letter if you already have a drive letter Q:
-::2) adjust file path in first line to MATCH YOUR SCIEBO FOLDER
-::3) adjust the team folder (T10 below) to MATCH YOUR TEAM NUMBER (T01,T02,T03 etc.)
-::4) adjust the folder and file paths in the third row to match the locations of MVWorkClient and MVClient on your harddrive
-
-if not exist Q:\ ( subst Q: "D:\Sciebo\Mineral Exploration\T10" ) 
-timeout 1
-start "" /d "D:\Sciebo\Mineral Exploration\MVWorkClient" "D:\Sciebo\Mineral Exploration\MVClient\job.exe"  
