@@ -1,0 +1,160 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%LaTex template for scientific report in AGP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt]{article}%[draft]{agujournal2019}
+\usepackage{url} %this package should fix any errors with URLs in refs.
+\usepackage{lineno}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.875in]{geometry}
+\usepackage[inline]{trackchanges} %for better track changes. finalnew option will compile document with changes incorporated.
+\usepackage{soul}
+\usepackage{graphicx}
+\graphicspath{ {./figures/} }
+
+\usepackage{verbatim}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyvrb}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{blindtext}
+
+% redefine \VerbatimInput
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=0.8\footnotesize,
+ %
+ frame=lines,  % top and bottom rule only
+ framesep=2em, % separation between frame and text
+ rulecolor=\color{Gray},
+ %
+ label=\fbox{\color{Black}processing history of MIG-FD50-T2D},
+ labelposition=topline,
+ %
+ commandchars=\|\(\), % escape character and argument delimiters for
+                      % commands within the verbatim
+ commentchar=*        % comment character
+}
+
+\usepackage[backend=bibtex,style=authoryear-icomp,maxcitenames=1,natbib]{biblatex}
+%\usepackage[authordate,bibencoding=auto,strict,backend=biber,natbib]{biblatex-chicago}
+
+\setlength{\parindent}{0pt}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+
+%\draftfalse
+
+
+\title{TITLE}
+
+\addbibresource{example.bib} %Imports bibliography file
+\DefineBibliographyStrings{german}{%
+  andothers = {et al.},
+}
+
+%(repeat as many times as is necessary)
+
+%% Corresponding Author:
+% Corresponding author mailing address and e-mail address:
+% Example: \correspondingauthor{First and Last Name}{email@address.edu}
+
+\begin{document}
+%\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TITLEPAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+
+%%%%
+% In case only one pic do this
+%\begin{flushright}
+%\includegraphics[scale=0.1]{Titlepage_files/RWTH_Logo.png}
+%\end{flushright}
+%%%%
+
+\begin{figure}[!tbp]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+  \begin{flushleft}
+    \includegraphics[height=2cm]{Titlepage_files/RWTH_CGGR_logo.png}
+  \end{flushleft}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth}
+  \begin{flushright}
+    \includegraphics[height=2cm]{Titlepage_files/IDEA_Leage_logo.png}
+  \end{flushright}
+  \end{minipage}
+\end{figure}
+
+
+\begin{center}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % horizontal line and its thickness
+\textsc{\LARGE RWTH Aachen}\\[2cm]
+
+\textsc{\Large Joint Master Applied Geophysics [2021-2023]}\\[2cm]
+
+\HRule \\[0.5cm]
+{ \huge \bfseries 2D synthetic geophysical data study of a simplified volcanic diatreme structure}\\[0.5cm]
+\HRule \\[2cm]
+\Large
+
+{Anton Ziegon: 21-958-970} \\[20mm]
+{Report submitted for Research Module (Module 54.12000)} \\[20mm]
+
+
+\textbf{Supervisors:}\\[5mm]
+\begin{tabular}{lll}
+
+Supervisor 1: & Dr. Marc Boxberg & RWTH Aachen\\
+Supervisor 2: & Dr. Florian Wagner & RWTH Aachen\\ [20mm]
+
+\end{tabular}
+\end{center}
+
+\begin{center}
+   \Large\textbf{\today} 
+\end{center}
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+%\tableofcontents
+
+%\newpage
+%\listoffigures
+%\listoftables
+
+%\newpage
+
+\input{Chapters/0_Abstract.tex}
+\input{Chapters/1_Introduction.tex}
+\input{Chapters/2_Methods.tex}
+\input{Chapters/3_Results.tex}
+\input{Chapters/4_Discussion.tex}
+
+
+%%% Bibliography
+\printbibliography
+
+\input{Chapters/5_Datamanagement.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Appendix
+\newpage
+\appendix
+%\section{Appendix}
+\setcounter{figure}{0} 
+\counterwithin{figure}{section}
+
+%\input{Appendix/appendix_example.tex}
+%\input{Appendix/appendix_pictures.tex}
+%\input{appendix/appendix-c}
+
+
+%Include document printout
+%\verbatiminput{XXX}
+
+\end{document}

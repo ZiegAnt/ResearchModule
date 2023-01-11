@@ -1,0 +1,24 @@
+\section{Methods}\label{section:Methods}
+
+\subsection{Mesh generation}\label{section:Mesh}
++ why unstructired mesh \\
++ what method is used for meshing\\
++ what and why values of different regions\\
+
+To discretize the 2D subsurface geometry, especially the diatreme structure, as good as possible an unstructured, triangualr mesh is used. This is done in PyGIMLI by using the funtion \textit{pygimli.meshtools.createMesh()} which is calling the two-dimensional quality mesh generator and delaunay triangulator \textit{Triangle} \citep{shewchuk1996triangle}. The resulting mesh is shown inf Figure \ref{figure:mesh} and consists mainly of triangles without small and large angles and is therefore suitable for finite element calculations. 
+
+Different material properties, i.e. seismic P-wave velocity, electrical resistivity and density, are assigned to the  different geologic formations that are indicated in Figure \ref{figure:synthetic_model}. The values are based on previous geophysical studies of the area as for example \citet{NiklasPlumpe.2015,TimGilberti.2020} and literature as ....
+
+\subsection{Electrical Resistivity Tomography}\label{section:ERT}
++ few sentences on theory
++ what methods are used
++ what is used for inversion
+
+\subsection{Traveltime Toomgraphy}\label{section:TT}
++ few sentences on theory
++ what methods are used
++ what inversion methods are used
+
+\subsection{Gravimetry}\label{section:Gravimetry}
++ few sentences on theory
++ what methods are used
