@@ -3,9 +3,9 @@
 \subsection{Mesh generation}\label{section:Mesh}
 To discretize the 2D subsurface geometry, especially the diatreme structure, as good as possible an unstructured, triangular mesh is used. This is done in PyGIMLI by using the function \textit{pygimli.meshtools.createMesh()} which is calling the two-dimensional quality mesh generator and Delaunay triangulator \textit{Triangle} \citep{shewchuk1996triangle}. The resulting mesh is shown inf Figure \ref{figure:mesh} and consists mainly of triangles without small and large angles and is therefore suitable for finite element calculations. The big benefit of the unstructured mesh is that it can discretize curved or irregular boundaries better than a rectangular grid and therefore ensures a better accuracy when running calculations on the model. A discretization of the diatreme structure with a rectangular grid would result in steps at the boundaries, rectangular grids were not considered.
 
-Different material properties, i.e. seismic P-wave velocity, electrical resistivity and density, are assigned to the  different geologic formations that are indicated in Figure \ref{figure:synthetic_model}. The values are based on previous geophysical studies of the area as for example \citet{NiklasPlumpe.2015,TimGilberti.2020} and further literature like \citet{geldart2004problems,palacky1988resistivity} and summarized in table \ref{table:properties}. The upper sandstone layer (SS) is assumed to be part of the groundwater aquifer and therefore has a much lower resistivity than the more consolidated and dense sandstone layer below (CSS). A visualization of the parameters in shown in figure \ref{figure:model_with_para}. These models will be used as an input for the gravimetric, ERT and traveltime tomography forward calculations which are presented in the following sections.
+Different material properties, i.e. seismic P-wave velocity, electrical resistivity and density, are assigned to the  different geologic formations that are indicated in Figure \ref{figure:synthetic_model}. The values are based on previous geophysical studies of the area as for example \citet{NiklasPlumpe.2015,TimGilberti.2020} and further literature like \citet{geldart2004problems,palacky1988resistivity} and summarized in table \ref{table:properties}. The upper sandstone layer (SS) is assumed to be part of the groundwater aquifer and therefore has a much lower resistivity than the more consolidated and dense sandstone layer below (CSS). This model will be used as an input for the gravimetric, ERT and traveltime tomography forward calculations which are presented in the following sections.
 
-\begin{table}[!htb]
+\begin{table}[]
 \caption{Material properties of different geologic formations.}
 \centering
 \begin{tabular}{lccc}
@@ -24,8 +24,7 @@ Diatreme & $2000$ & $10^5$ & $2100$\\
 \end{table}
 
 
-++++++ DO I NEED THe property figure????
-\begin{figure}[H]
+\begin{figure}[]
   \centering
   \begin{minipage}[b]{0.48\textwidth}
     \includegraphics[width=\textwidth]{Figures/Mesh.png}
@@ -39,13 +38,6 @@ Diatreme & $2000$ & $10^5$ & $2100$\\
     \label{figure:refined_mesh}
   \end{minipage}
 \end{figure}
-
-\begin{figure}[H]
-\noindent\includegraphics[width=\textwidth]{Figures/models_with_parameters.png}
-\caption[Models representing different material properties]{Models representing different material properties.}
-\label{figure:model_with_para}
-\end{figure}
-
 
 \subsection{Electrical Resistivity Tomography}\label{section:ERT}
 The ERT method is sensitive to electrical resistivity contrasts in the subsurface due to for example changes in clay content, porosity, pore fluid or ore minerals. First a direct current is inserted into the ground using two electrodes and then the potential difference between two points is measured with two additional electrodes. The electric potential $U$ can be calculated using the Poisson equation: 
@@ -65,9 +57,9 @@ Using the results of the simulations the potential differences between two virtu
     \label{Eq:rho_app}
 \end{equation}
 
-$\Delta U$ represents the potential difference between the two measurement locations $M$ and $N$, $I$ stands for the strength of the injected electrical current between the locations $A$ and $B$. The distance between an injection point and a measurement point is represented for example by $\overline{AM}$. The factor related to the acquisition geometry is called $K$ and is also often referred to as geometrical factor. 
+$\Delta U$ represents the potential difference between the two measurement locations $M$ and $N$, $I$ stands for the strength of the injected electrical current between the locations $A$ and $B$. The distance between an injection point and a measurement point is represented for example by $\overline{AM}$. The factor related to the acquisition geometry is called $K$ and is also often referred to as geometrical factor. To create a more realistic data set, noise is added to the data inside the \textit{simulate()} function. The noise is random and is defined by an absolute value as well as a noise level. The noise level is given in percent and defines the relative noise magnitude on a data point. The absolute noise on the other hand defines a noise magnitude independent from the data point and is therefore defined in the unity of volt $V$. For each data point the bigger of those noise criteria is chosen to define the noise that is contaminating the data.
 
-After generating the synthetic data as described above an inversion is performed in order to turn the apparent resistivity section into a true resistivity distribution. This is done in PyGIMLI via the function \textit{pygimli.frameworks.methodManager.invert()}. This function requires the generated synthetic data as input as well as parameters for the inversion mesh generation and the inversion. The function is starting the inversion process by constructing an inversion mesh based on the acquisition geometry and the additional parameters given as an input. The inverse problem is subject to a non-linear optimization problem as the misfit function $\chi$ needs to be minimized. Using a Gauss-Newton algorithm a error-weighted, smoothness-constraint least-squares solution to the inverse problem is determined which can be visualized as a true resistivity distribution \citep{Ruecker2017}.
+After generating the synthetic data as described above an inversion is performed in order to turn the apparent resistivity section into a true resistivity distribution. This is done in PyGIMLI via the function \textit{pygimli.frameworks.methodManager.invert()}. This function requires the generated synthetic data as input as well as parameters for the inversion mesh generation and the inversion. The function is starting the inversion process by constructing an inversion mesh based on the acquisition geometry and the additional parameters given as an input. The inverse problem is subject to a non-linear optimization problem as the misfit function $\chi$ needs to be minimized. The misfit criterion $\chi$ is calculated using the synthetic data and the predicted data. A value of approximately $\chi=1$ is desirable as it represents a model that explains the data within the uncertainties. Using a Gauss-Newton algorithm a error-weighted, smoothness-constraint least-squares solution to the inverse problem is determined which can be visualized as a true resistivity distribution. The smoothness constraint is mainly defined through the regularization parameter $\lambda$ which weights between the data fit $\chi$ and the model smoothness. The higher the $\lambda$ value the smoother is the resulting model, however, it results in a worse data fit \citep{Ruecker2017}.
 
 \subsection{Traveltime Tomography}\label{section:TT}
 Traveltime tomography, also often referred to as seismic refraction tomography, is a method that is based on seismic refraction in the subsurface. Refracted waves can be observed if a seismic velocity increase can be observed with increasing depth. In that case the wave is travelling faster inside the deeper refractor in comparison with the direct wave which is travelling along the surface such that at a certain distance the refracted wave is overtaking the direct wave. Then the first arrival in the seismic measurements is contributed by the refracted wave \citep{kearey2002introduction}. Synthetic traveltime tomography data is created using the standard routine in the module \textit{pygimli.physics.traveltime}, starting with the setup of the acquisition geometry. Then, a refined mesh is constructed similar to the ERT calculations described in section \ref{section:ERT}. The synthetic data is then generated via the function \textit{pygimli.physics.traveltime.TravelTimeManager.simulate()} which computes the ray paths between sources and sensors. With known ray paths the synthetic data, i.e. the traveltimes, can be calculated according to \citet{zelt2021traveltime} as:
@@ -76,7 +68,7 @@ Traveltime tomography, also often referred to as seismic refraction tomography, 
     \label{Eq:TT}
 \end{equation}
 
-$t_i$ is the i-th taveltime observation, $l_{ij}$ the length of the i-th ray path segment (corresponding to the i-th observation) in the j-th model cell and $s_j$ is the slowness of the j-th model cell. Note that the slowness $s$ is the reciprocal of the velocity $v$. 
+$t_i$ is the i-th taveltime observation, $l_{ij}$ the length of the i-th ray path segment (corresponding to the i-th observation) in the j-th model cell and $s_j$ is the slowness of the j-th model cell. Note that the slowness $s$ is the reciprocal of the velocity $v$. Noise can be defined similar as it was already described for the synthetic ERT data. Important to mention is that the absolute noise is defined in seconds ($s$) as traveltimes are generated.
 
 After generating the synthetic traveltimes, an inversion of the data is performed similar to the ERT data inversion described in section \ref{section:ERT}. PyGIMLI performs an inversion of the traveltime data by calling the function \textit{pygimli.physics.traveltime.TravelTimeManager.invert()}. The result is, similar to the ERT inversion, an error-weighted, smoothness-constraint least-squares solution in form of a velocity model that explains the data within the uncertainties \citep{Ruecker2017}.
 
@@ -96,5 +88,5 @@ The constant $G$ is called the gravitational constant and holds a value of $6.67
 
 As shown in the equation \ref{Eq:Newton2} the gravitational force on a body is a product of the gravitational acceleration $g$, often also referred to as gravity, and its mass. In gravimetry it is most useful to describe the gravitational field in form of its potential $U$ as the gravitational acceleration is the gradient of the potential $U$. The magnitude of the potential depends on the radius as well as on the density distribution in the subsurface and therefore measurements of the gravitational acceleration can be used to gain knowledge of subsurface structures \citep{kearey2002introduction}.
 
-A synthetic gravity study of the simplified diatreme model is performed in PyGIMLI. This is achieved by applying the function \textit{pygimli.physics.gravimetry.solveGravimetry()} to the mesh with a defined sensor geometry and density distribution. The forward calculation of the gravimetric potential is the performed after \citet{won1987computing}. The synthetic data then shows then the gravitational response of the density distribution. As PyGIMLI does not offer a fast and easy way yet to invert gravity data in 2D and due to the lack of time during the research module, the synthetic gravity data is not inverted in this work. However, the synthetic data will be visualized and discussed.
+A synthetic gravity study of the simplified diatreme model is performed in PyGIMLI. This is achieved by applying the function \textit{pygimli.physics.gravimetry.solveGravimetry()} to the mesh with a defined sensor geometry and density distribution. The forward calculation of the gravimetric potential is the performed after \citet{won1987computing}. The synthetic data then shows then the gravitational response of the density distribution. To isolate the gravity response of the anomaly synthetic data of the layered subsurface without the diatreme structure will be generated and deducted from the first simulation data. The resulting data shows the effect of the diatreme structure on the gravitational acceleration, i.e. the first derivative of the gravitational potential. As PyGIMLI does not offer a fast and easy way yet to invert gravity data in 2D and due to the lack of time during the research module, the synthetic gravity data is not inverted in this work. However, the synthetic data will be visualized and discussed.
 

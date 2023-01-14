@@ -18,6 +18,7 @@
 \usepackage{fancyvrb}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage{blindtext}
+\usepackage[labelfont=bf]{caption} % make figure labels bold
 
 % redefine \VerbatimInput
 \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
@@ -148,7 +149,9 @@ Supervisor 2: & Dr. Florian Wagner & RWTH Aachen\\ [20mm]
 \newpage
 \appendix
 \section{Appendix}
-\setcounter{figure}{0} 
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
 \counterwithin{figure}{section}
 
 \input{Appendix/Appendix_Settings.tex}
