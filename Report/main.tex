@@ -37,6 +37,9 @@
 }
 
 \usepackage[backend=bibtex,style=authoryear-icomp,maxcitenames=1,natbib]{biblatex}
+% to sort random refenerence order in tex to sorted by year
+%\AtBeginRefsection{\GenRefcontextData{sorting=ynt}}
+%\AtEveryCite{\localrefcontext[sorting=ynt]}
 %\usepackage[authordate,bibencoding=auto,strict,backend=biber,natbib]{biblatex-chicago}
 
 \setlength{\parindent}{0pt}
@@ -78,7 +81,7 @@
   \centering
   \begin{minipage}[b]{0.4\textwidth}
   \begin{flushleft}
-    \includegraphics[height=2cm]{Titlepage_files/RWTH_CGGR_logo.png}
+    \includegraphics[height=1.3cm]{Titlepage_files/RWTH_Logo.png}
   \end{flushleft}
   \end{minipage}
   \hfill
@@ -92,13 +95,13 @@
 
 \begin{center}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % horizontal line and its thickness
-\textsc{\LARGE RWTH Aachen}\\[2cm]
+\textsc{\LARGE RWTH Aachen University}\\[1.5cm]
 
-\textsc{\Large Joint Master Applied Geophysics [2021-2023]}\\[2cm]
+\textsc{\Large Joint Master Applied Geophysics [2021-2023]}\\[1.5cm]
 
 \HRule \\[0.5cm]
-{ \huge \bfseries 2D synthetic geophysical data study of a simplified volcanic diatreme structure}\\[0.5cm]
-\HRule \\[2cm]
+{ \huge \bfseries 2D synthetic geophysical multi-method imaging study of a simplified volcanic diatreme structure}\\[0.5cm]
+\HRule \\[1.5cm]
 \Large
 
 {Anton Ziegon: 21-958-970} \\[20mm]
@@ -108,8 +111,8 @@
 \textbf{Supervisors:}\\[5mm]
 \begin{tabular}{lll}
 
-Supervisor 1: & Dr. Marc Boxberg & RWTH Aachen\\
-Supervisor 2: & Dr. Florian Wagner & RWTH Aachen\\ [20mm]
+Supervisor 1: & Prof. Dr. Florian Wagner & RWTH Aachen University\\
+Supervisor 2: & Dr. Marc Boxberg & RWTH Aachen University\\[20mm]
 
 \end{tabular}
 \end{center}
@@ -131,6 +134,7 @@ Supervisor 2: & Dr. Florian Wagner & RWTH Aachen\\ [20mm]
 %\newpage
 
 \input{Chapters/0_Abstract.tex}
+\newpage
 \input{Chapters/1_Introduction.tex}
 \input{Chapters/2_Methods.tex}
 \input{Chapters/3_Results.tex}
